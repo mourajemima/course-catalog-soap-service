@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions name="MatriculaService"
+    targetNamespace="http://example.com/matriculaService"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://example.com/matriculaService"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <types>
+
+        <xsd:schema targetNamespace="http://example.com/matriculaService">
+
+            <xsd:complexType name="Matricula">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:int" />
+                    <xsd:element name="idAluno" type="xsd:int" />
+                    <xsd:element name="idCurso" type="xsd:int" />
+                    <xsd:element name="status" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:element name="realizarMatriculaRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="idAluno" type="xsd:int" />
+                        <xsd:element name="idCurso" type="xsd:int" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="realizarMatriculaResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="matricula" type="tns:Matricula" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="consultarMatriculaRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="idMatricula" type="xsd:int" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="consultarMatriculaResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="matricula" type="tns:Matricula" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="listarMatriculasPorAlunoRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="idAluno" type="xsd:int" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="listarMatriculasPorAlunoResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="matriculas" type="tns:Matricula"
+                            minOccurs="0" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="cancelarMatriculaRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="idMatricula" type="xsd:int" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="cancelarMatriculaResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="matricula" type="tns:Matricula" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+        </xsd:schema>
+
+    </types>
+
+    <message name="realizarMatriculaRequest">
+        <part name="parameters" element="tns:realizarMatriculaRequest" />
+    </message>
+
+    <message name="realizarMatriculaResponse">
+        <part name="parameters" element="tns:realizarMatriculaResponse" />
+    </message>
+
+    <message name="consultarMatriculaRequest">
+        <part name="parameters" element="tns:consultarMatriculaRequest" />
+    </message>
+
+    <message name="consultarMatriculaResponse">
+        <part name="parameters" element="tns:consultarMatriculaResponse" />
+    </message>
+
+    <message name="listarMatriculasPorAlunoRequest">
+        <part name="parameters" element="tns:listarMatriculasPorAlunoRequest" />
+    </message>
+
+    <message name="listarMatriculasPorAlunoResponse">
+        <part name="parameters" element="tns:listarMatriculasPorAlunoResponse" />
+    </message>
+
+    <message name="cancelarMatriculaRequest">
+        <part name="parameters" element="tns:cancelarMatriculaRequest" />
+    </message>
+
+    <message name="cancelarMatriculaResponse">
+        <part name="parameters" element="tns:cancelarMatriculaResponse" />
+    </message>
+
+    <portType name="MatriculaServicePortType">
+
+        <operation name="realizarMatricula">
+            <input message="tns:realizarMatriculaRequest" />
+            <output message="tns:realizarMatriculaResponse" />
+        </operation>
+
+        <operation name="consultarMatricula">
+            <input message="tns:consultarMatriculaRequest" />
+            <output message="tns:consultarMatriculaResponse" />
+        </operation>
+
+        <operation name="listarMatriculasPorAluno">
+            <input message="tns:listarMatriculasPorAlunoRequest" />
+            <output message="tns:listarMatriculasPorAlunoResponse" />
+        </operation>
+
+        <operation name="cancelarMatricula">
+            <input message="tns:cancelarMatriculaRequest" />
+            <output message="tns:cancelarMatriculaResponse" />
+        </operation>
+
+    </portType>
+
+    <binding name="MatriculaServiceBinding" type="tns:MatriculaServicePortType">
+
+        <soap:binding style="document"
+            transport="http://schemas.xmlsoap.org/soap/http" />
+
+        <operation name="realizarMatricula">
+            <soap:operation soapAction="realizarMatricula" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+
+        <operation name="consultarMatricula">
+            <soap:operation soapAction="consultarMatricula" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+
+        <operation name="listarMatriculasPorAluno">
+            <soap:operation soapAction="listarMatriculasPorAluno" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+
+        <operation name="cancelarMatricula">
+            <soap:operation soapAction="cancelarMatricula" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+
+    </binding>
+
+    <service name="MatriculaService">
+
+        <port name="MatriculaServicePort" binding="tns:MatriculaServiceBinding">
+            <soap:address location="http://localhost:8000/matricula" />
+        </port>
+
+    </service>
+
+</definitions>

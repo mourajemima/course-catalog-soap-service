@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions name="AlunoService"
+    targetNamespace="http://example.com/alunoService"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://example.com/alunoService"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <types>
+
+        <xsd:schema targetNamespace="http://example.com/alunoService">
+
+            <xsd:complexType name="Aluno">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:int" />
+                    <xsd:element name="nome" type="xsd:string" />
+                    <xsd:element name="email" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:element name="cadastrarAlunoRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="nome" type="xsd:string" />
+                        <xsd:element name="email" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="cadastrarAlunoResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="aluno" type="tns:Aluno" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="consultarAlunoRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="idAluno" type="xsd:int" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="consultarAlunoResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="aluno" type="tns:Aluno" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="listarAlunosRequest" />
+
+            <xsd:element name="listarAlunosResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="alunos" type="tns:Aluno"
+                            minOccurs="0" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+        </xsd:schema>
+
+    </types>
+
+    <message name="cadastrarAlunoRequest">
+        <part name="parameters" element="tns:cadastrarAlunoRequest" />
+    </message>
+
+    <message name="cadastrarAlunoResponse">
+        <part name="parameters" element="tns:cadastrarAlunoResponse" />
+    </message>
+
+    <message name="consultarAlunoRequest">
+        <part name="parameters" element="tns:consultarAlunoRequest" />
+    </message>
+
+    <message name="consultarAlunoResponse">
+        <part name="parameters" element="tns:consultarAlunoResponse" />
+    </message>
+
+    <message name="listarAlunosRequest">
+        <part name="parameters" element="tns:listarAlunosRequest" />
+    </message>
+
+    <message name="listarAlunosResponse">
+        <part name="parameters" element="tns:listarAlunosResponse" />
+    </message>
+
+    <portType name="AlunoServicePortType">
+
+        <operation name="cadastrarAluno">
+            <input message="tns:cadastrarAlunoRequest" />
+            <output message="tns:cadastrarAlunoResponse" />
+        </operation>
+
+        <operation name="consultarAluno">
+            <input message="tns:consultarAlunoRequest" />
+            <output message="tns:consultarAlunoResponse" />
+        </operation>
+
+        <operation name="listarAlunos">
+            <input message="tns:listarAlunosRequest" />
+            <output message="tns:listarAlunosResponse" />
+        </operation>
+
+    </portType>
+
+    <binding name="AlunoServiceBinding" type="tns:AlunoServicePortType">
+
+        <soap:binding style="document"
+            transport="http://schemas.xmlsoap.org/soap/http" />
+
+        <operation name="cadastrarAluno">
+            <soap:operation soapAction="cadastrarAluno" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+
+        <operation name="consultarAluno">
+            <soap:operation soapAction="consultarAluno" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+
+        <operation name="listarAlunos">
+            <soap:operation soapAction="listarAlunos" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+
+    </binding>
+
+    <service name="AlunoService">
+
+        <port name="AlunoServicePort" binding="tns:AlunoServiceBinding">
+            <soap:address location="http://localhost:8000/aluno" />
+        </port>
+
+    </service>
+
+</definitions>

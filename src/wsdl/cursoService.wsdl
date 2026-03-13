@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions name="CursoService"
+    targetNamespace="http://example.com/cursoService"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://example.com/cursoService"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <types>
+
+        <xsd:schema targetNamespace="http://example.com/cursoService">
+
+            <xsd:complexType name="Curso">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:int" />
+                    <xsd:element name="nome" type="xsd:string" />
+                    <xsd:element name="categoria" type="xsd:string" />
+                    <xsd:element name="cargaHoraria" type="xsd:int" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:element name="listarCursosRequest" />
+
+            <xsd:element name="listarCursosResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="cursos" type="tns:Curso" minOccurs="0"
+                            maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="consultarCursoRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="idCurso" type="xsd:int" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="consultarCursoResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="curso" type="tns:Curso" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="buscarPorCategoriaRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="categoria" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="buscarPorCategoriaResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="cursos" type="tns:Curso" minOccurs="0"
+                            maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+        </xsd:schema>
+
+    </types>
+
+    <message name="listarCursosRequest">
+        <part name="parameters" element="tns:listarCursosRequest" />
+    </message>
+
+    <message name="listarCursosResponse">
+        <part name="parameters" element="tns:listarCursosResponse" />
+    </message>
+
+    <message name="consultarCursoRequest">
+        <part name="parameters" element="tns:consultarCursoRequest" />
+    </message>
+
+    <message name="consultarCursoResponse">
+        <part name="parameters" element="tns:consultarCursoResponse" />
+    </message>
+
+    <message name="buscarPorCategoriaRequest">
+        <part name="parameters" element="tns:buscarPorCategoriaRequest" />
+    </message>
+
+    <message name="buscarPorCategoriaResponse">
+        <part name="parameters" element="tns:buscarPorCategoriaResponse" />
+    </message>
+
+    <portType name="CursoServicePortType">
+
+        <operation name="listarCursos">
+            <input message="tns:listarCursosRequest" />
+            <output message="tns:listarCursosResponse" />
+        </operation>
+
+        <operation name="consultarCurso">
+            <input message="tns:consultarCursoRequest" />
+            <output message="tns:consultarCursoResponse" />
+        </operation>
+
+        <operation name="buscarPorCategoria">
+            <input message="tns:buscarPorCategoriaRequest" />
+            <output message="tns:buscarPorCategoriaResponse" />
+        </operation>
+
+    </portType>
+
+    <binding name="CursoServiceBinding" type="tns:CursoServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+
+        <operation name="listarCursos">
+            <soap:operation soapAction="listarCursos" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+
+        <operation name="consultarCurso">
+            <soap:operation soapAction="consultarCurso" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+
+        <operation name="buscarPorCategoria">
+            <soap:operation soapAction="buscarPorCategoria" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+
+    </binding>
+
+    <service name="CursoService">
+
+        <port name="CursoServicePort" binding="tns:CursoServiceBinding">
+
+            <soap:address location="http://localhost:8000/curso" />
+
+        </port>
+
+    </service>
+
+</definitions>
