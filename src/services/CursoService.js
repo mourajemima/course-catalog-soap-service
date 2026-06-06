@@ -1,21 +1,19 @@
-const { cursos } = require('../data/database');
+const db = require("../database/connection");
 
 const CursoService = {
 
     listarCursos() {
-        return {
-            cursos: cursos.map(curso => ({
-                id: curso.id,
-                nome: curso.nome,
-                categoria: curso.categoria,
-                cargaHoraria: curso.cargaHoraria
-            }))
-        };
+        const cursos = db.prepare(`
+            SELECT * FROM cursos
+        `).all();
+        return { cursos };
     },
 
     consultarCurso(args) {
-        const id = parseInt(args.idCurso);
-        const curso = cursos.find(c => c.id === id);
+        const curso = db.prepare(`
+            SELECT * FROM cursos
+            WHERE id = ?
+        `).get(args.idCurso);
         if (!curso) {
             throw new Error("Curso não encontrado");
         }
@@ -23,11 +21,12 @@ const CursoService = {
     },
 
     buscarPorCategoria(args) {
-        const categoria = args.categoria;
-        const resultado = cursos.filter(
-            curso => curso.categoria.toLowerCase() === categoria.toLowerCase()
-        );
-        return { cursos: resultado };
+        const cursos = db.prepare(`
+            SELECT *
+            FROM cursos
+            WHERE categoria = ?
+        `).all(args.categoria);
+        return { cursos };
     }
 
 };

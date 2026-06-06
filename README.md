@@ -1,12 +1,18 @@
 # Web Service SOAP - Catálogo de Cursos
 
-Este projeto implementa um Web Service SOAP para gerenciamento de cursos, alunos e matrículas.
+Projeto desenvolvido para a disciplina Programação Orientada a Serviços da UERN.
+
+O sistema implementa um Web Service SOAP para gerenciamento de alunos, cursos e matrículas utilizando arquitetura orientada a serviços (SOA).
 
 ## Requisitos de Ambiente
 
 - Node.js (versão 18 ou superior)
 - NPM
-- Biblioteca soap para Node.js
+- soap
+- SQLite
+- better-sqlite3
+- JSON Web Token (JWT)
+- SoapUI
 
 ## Instalação
 
@@ -21,9 +27,9 @@ Instale as dependências:
 npm install
 ```
 
-## Execução do Serviço
+## Execução
 
-Execute o servidor: 
+Inicie o servidor: 
 ```
 node src/server.js
 ```
@@ -40,20 +46,55 @@ http://localhost:8000/aluno?wsdl
 http://localhost:8000/matricula?wsdl
 ```
 
-## Consumo do Serviço
+## Banco de Dados
+O projeto utiliza SQLite para persistência dos dados.
 
-O serviço pode ser consumido utilizando ferramentas como: 
+O arquivo do banco é gerado automaticamente após a primeira execução do servidor.
+
+## Segurança com JWT
+
+A operação protegida é: removerAluno.
+
+Para gerar um token execute:
+
+```
+node src/security/gerarToken.js
+```
+
+O token será exibido no terminal.
+
+O token possui validade de 12 horas.
+
+Para executar a operação removerAluno é necessário informar o token no XML da requisição SOAP.
+
+## Logs
+O sistema registra eventos do AlunoService.
+
+Os logs são armazenados em: src/logs/soap.log
+
+São registrados:
+
+- Consultas
+- Cadastros
+- Atualizações
+- Remoções
+- Erros
+- Falhas de autenticação
+
+O arquivo de log é criado automaticamente durante a execução do sistema.
+
+## Testes
+
+Teste foram realizados utilizando: 
 
 - SoapUI
 - Postman
-- Clientes SOAP
 
-Passos para consumir: 
+Foram testadas:
 
-1. Executar o servidor 
-2. Abrir uma ferramenta de teste de APIs
-3. Conferir o WSDL do serviço
-4. Escolher a operação desejada
-5. Enviar a requisição SOAP: 
-    1. Adicionar o XML no Body da requisição contendo os parâmetros necessários. 
+- Operações funcionais
+- Mensagens XML
+- Falhas de autenticação
+- Erros de negócio
+- Operações protegidas por JWT
 

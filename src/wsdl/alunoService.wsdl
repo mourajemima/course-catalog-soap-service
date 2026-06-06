@@ -63,6 +63,41 @@
                 </xsd:complexType>
             </xsd:element>
 
+            <xsd:element name="atualizarAlunoRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="idAluno" type="xsd:int" />
+                        <xsd:element name="nome" type="xsd:string" />
+                        <xsd:element name="email" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="atualizarAlunoResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="aluno" type="tns:Aluno" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="removerAlunoRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="idAluno" type="xsd:int" />
+                        <xsd:element name="token" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="removerAlunoResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="mensagem" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
         </xsd:schema>
 
     </types>
@@ -91,6 +126,22 @@
         <part name="parameters" element="tns:listarAlunosResponse" />
     </message>
 
+    <message name="atualizarAlunoRequest">
+        <part name="parameters" element="tns:atualizarAlunoRequest" />
+    </message>
+
+    <message name="atualizarAlunoResponse">
+        <part name="parameters" element="tns:atualizarAlunoResponse" />
+    </message>
+
+    <message name="removerAlunoRequest">
+        <part name="parameters" element="tns:removerAlunoRequest" />
+    </message>
+
+    <message name="removerAlunoResponse">
+        <part name="parameters" element="tns:removerAlunoResponse" />
+    </message>
+
     <portType name="AlunoServicePortType">
 
         <operation name="cadastrarAluno">
@@ -106,6 +157,16 @@
         <operation name="listarAlunos">
             <input message="tns:listarAlunosRequest" />
             <output message="tns:listarAlunosResponse" />
+        </operation>
+
+        <operation name="atualizarAluno">
+            <input message="tns:atualizarAlunoRequest" />
+            <output message="tns:atualizarAlunoResponse" />
+        </operation>
+
+        <operation name="removerAluno">
+            <input message="tns:removerAlunoRequest" />
+            <output message="tns:removerAlunoResponse" />
         </operation>
 
     </portType>
@@ -137,6 +198,26 @@
 
         <operation name="listarAlunos">
             <soap:operation soapAction="listarAlunos" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+
+        <operation name="atualizarAluno">
+            <soap:operation soapAction="atualizarAluno" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+
+        <operation name="removerAluno">
+            <soap:operation soapAction="removerAluno" />
             <input>
                 <soap:body use="literal" />
             </input>

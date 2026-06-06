@@ -1,1 +1,4 @@
 node_modules
+src/logs/soap.log
+*.sqlite
+database.sqlite
